@@ -8,9 +8,10 @@ class AppErrorBoundary extends React.Component {
   static getDerivedStateFromError(error) { return { error }; }
   componentDidCatch(error) { console.error('Application render error:', error); }
   render() {
-    if (this.state.error) return <main style={{maxWidth:720,margin:'12vh auto',padding:24,color:'#e9eef8',fontFamily:'system-ui'}}>
+    if (this.state.error) return <main style={{maxWidth:720,margin:'8vh auto',padding:24,color:'#e9eef8',fontFamily:'system-ui'}}>
       <h1>Jémor Digital House</h1>
-      <p>Une erreur empêche le chargement de la page. Recharge le site dans quelques instants.</p>
+      <p>Une erreur empêche le chargement du site.</p>
+      <pre style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere',padding:16,background:'#182438',borderRadius:8,color:'#ffcc99',fontSize:13}}>{String(this.state.error?.stack || this.state.error?.message || this.state.error)}</pre>
       <button onClick={() => location.reload()} style={{padding:'12px 18px',borderRadius:8}}>Recharger</button>
     </main>;
     return this.props.children;
@@ -23,6 +24,6 @@ if (rootElement) {
     createRoot(rootElement).render(<AppErrorBoundary><App /></AppErrorBoundary>);
   } catch (error) {
     console.error('Application startup error:', error);
-    rootElement.innerHTML = '<main style="max-width:720px;margin:12vh auto;padding:24px;color:#e9eef8;font-family:system-ui"><h1>Jémor Digital House</h1><p>Le site rencontre un problème au démarrage. Recharge la page dans quelques instants.</p></main>';
+    rootElement.innerHTML = '<main style="max-width:720px;margin:12vh auto;padding:24px;color:#e9eef8;font-family:system-ui"><h1>Jémor Digital House</h1><p>Erreur au démarrage : '+String(error?.message || error)+'</p></main>';
   }
 }
