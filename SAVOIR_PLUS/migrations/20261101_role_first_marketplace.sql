@@ -83,8 +83,10 @@ app_role=excluded.app_role,updated_at=now();
 
 create or replace view public.admin_user_directory with (security_invoker=true) as
 select d.user_id,d.email,d.account_type,d.app_role,d.created_at,p.display_name,p.country,p.city,p.phone,
-       p.learner_kind,p.school_class,p.university_year,p.study_field,p.child_class,p.signup_goal
-from private.user_directory d left join public.profiles p on p.id=d.user_id;
+       p.learner_kind,p.school_class,p.university_year,p.study_field,p.child_class,p.signup_goal,
+       tp.store_name,tp.store_description,tp.subjects as teacher_subjects,tp.levels as teacher_levels
+from private.user_directory d left join public.profiles p on p.id=d.user_id
+left join public.teacher_profiles tp on tp.user_id=d.user_id;
 grant select on public.admin_user_directory to authenticated;
 
 create or replace function public.handle_new_user()
