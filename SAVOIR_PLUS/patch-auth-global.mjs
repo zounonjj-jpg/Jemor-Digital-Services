@@ -79,3 +79,8 @@ fs.copyFileSync(appPath,'public/_inspect-app-source.txt');
 fs.copyFileSync(cssPath,'public/_inspect-app-styles.txt');
 
 fs.copyFileSync('src/Workspace.jsx','public/_inspect-workspace-source.txt');
+
+fs.copyFileSync('overrides/App.jsx', 'src/App.jsx');
+fs.copyFileSync('overrides/Workspace.jsx', 'src/Workspace.jsx');
+fs.copyFileSync('overrides/styles.css', 'src/styles.css');
+console.log('SAVOIR+ audience landing, role-based onboarding, creator shop and owner-only admin promotion applied.');
