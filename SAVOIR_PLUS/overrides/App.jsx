@@ -99,7 +99,7 @@ export default function App() {
     if(videos.length>10){notify('Maximum autorisé : 10 vidéos MP4 par produit.','error');return;}
     if(uploadFiles.some(x=>x.size>100*1024*1024)){notify('Chaque fichier doit faire 100 Mo maximum.','error');return;}
     setBusy(true);
-    const payload={seller_id:session.user.id,title:productForm.title.trim(),description:productForm.description.trim(),category_id:productForm.category_id||null,subject:productForm.subject,level:productForm.level,kind:pdfs.length&&videos.length?'Formation':videos.length?'Vidéo':'PDF',listing_type:videos.length?'course':'document',price_xof:Number(productForm.price_xof),status:'approved'};
+    const payload={seller_id:session.user.id,title:productForm.title.trim(),description:productForm.description.trim(),category_id:productForm.category_id||null,subject:productForm.subject,level:productForm.level,kind:pdfs.length&&videos.length?'Formation':videos.length?'Vidéo':'PDF',listing_type:videos.length?'course':'document',price_xof:Number(productForm.price_xof),status:'draft'};
     const {data,error}=await supabase.from('listings').insert(payload).select('id').single();
     if(error){setBusy(false);notify(errText(error),'error');return;}
     const uploadedPaths=[];
@@ -118,6 +118,12 @@ export default function App() {
         await supabase.from('listings').delete().eq('id',data.id);
         setBusy(false);notify(`Enregistrement du fichier ${file.name} impossible : ${errText(saved.error)}. Le produit incomplet a été annulé.`,'error');return;
       }
+    }
+    const {error:publishError}=await supabase.rpc('publish_savoir_listing',{p_listing_id:data.id});
+    if(publishError){
+      await supabase.storage.from('savoir-products').remove(uploadedPaths);
+      await supabase.from('listings').delete().eq('id',data.id);
+      setBusy(false);notify(`Publication impossible : ${errText(publishError)}. Le produit incomplet a été annulé.`,'error');return;
     }
     const links={preview:`${window.location.origin}/produit/${data.id}`,payment:`${window.location.origin}/payer/${data.id}`};
     setBusy(false);setProductForm(initialForm);setUploadFiles([]);setShareLinks({id:data.id,...links});
