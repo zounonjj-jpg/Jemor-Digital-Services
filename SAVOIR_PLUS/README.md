@@ -20,9 +20,16 @@ npm run dev
 
 Sur Vercel, la commande d'installation configurée reconstitue automatiquement le dossier source avant `npm install`, puis `npm run build`.
 
+## Parcours par profil
+- Landing page qui présente séparément les parcours Élève, Étudiant, Parent et Créateur.
+- Inscription en deux étapes : choix du profil, puis formulaire adapté (classe, année universitaire/filière, classe de l'enfant ou boutique du créateur).
+- Comptes élèves, étudiants, parents et créateurs avec tableaux de bord distincts.
+- Boutique créateur avec matières et niveaux de spécialisation, publications automatiques sans validation préalable.
+- Administration : annuaire protégé des utilisateurs avec e-mails, profils, ventes et soldes réels.
+- Seul le propriétaire de la plateforme (claim `app_metadata.is_platform_owner=true`) peut nommer un administrateur ; un administrateur nommé ne peut pas en nommer un autre.
+
 ## Fonctionnalités disponibles sans paiement
-- Inscription et connexion pour élèves, parents et enseignants.
-- Profils, marketplace, création de ressources et validation administrative.
+- Marketplace, recherche/filtres, favoris, ressources, upload privé et accès aux ressources gratuites.
 - Cours en modules/leçons, inscriptions gratuites, progression et quiz corrigés côté serveur.
 - Liaison parent/élève, messagerie, notifications, favoris et signalements.
 - Espace administrateur : utilisateurs, modération, catégories, inscriptions, statistiques, rapports et journal d'actions.
