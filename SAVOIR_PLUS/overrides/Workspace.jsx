@@ -53,6 +53,8 @@ function StudentDashboard({ session, profile, navigate, notify, showLibrary = fa
   const [linkCode, setLinkCode] = useState('');
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState('');
+  const [downloadFiles,setDownloadFiles] = useState({});
+  const [downloadBusy,setDownloadBusy] = useState('');
   const load = useCallback(async () => {
     if (!session) return;
     setLoading(true);
@@ -71,6 +73,13 @@ function StudentDashboard({ session, profile, navigate, notify, showLibrary = fa
   useEffect(() => { load(); }, [load]);
   const completed = progress.filter(x => x.completed).length;
   const inProgress = enrollments.filter(x => x.status === 'active').length;
+  async function loadProductDownloads(listingId) {
+    setDownloadBusy(listingId);
+    const {data,error}=await supabase.functions.invoke('savoir-product-download',{body:{listing_id:listingId}});
+    setDownloadBusy('');
+    if(error||!data?.files){notify(data?.error||errorText(error),'error');return;}
+    setDownloadFiles(old=>({...old,[listingId]:data.files}));
+  }
   async function respond(id, accept) {
     setBusyId(id);
     const { error } = await supabase.rpc('respond_parent_link', { p_link_id: id, p_accept: accept });
@@ -93,7 +102,7 @@ function StudentDashboard({ session, profile, navigate, notify, showLibrary = fa
         const courseProgress = progress.filter(x => x.lesson?.module?.listing_id === item.listing_id && x.completed).length;
         return <article className="workspace-course-card" key={item.id}>
           <div className="course-cover"><BookMarked size={26}/><span>{item.listing?.kind || 'Ressource'}</span></div>
-          <div className="course-card-content"><span className="eyebrow">{item.listing?.subject} · {item.listing?.level}</span><h3>{item.listing?.title}</h3><p>{item.listing?.description}</p><small>{courseProgress} leçon(s) terminée(s)</small><button className="btn btn-primary" onClick={() => navigate(`/apprendre/${item.listing_id}`)}>Continuer <ArrowRight size={16}/></button></div>
+          <div className="course-card-content"><span className="eyebrow">{item.listing?.subject} · {item.listing?.level}</span><h3>{item.listing?.title}</h3><p>{item.listing?.description}</p><small>{courseProgress} leçon(s) terminée(s)</small><div className="inline-actions"><button className="btn btn-primary" onClick={() => navigate(`/apprendre/${item.listing_id}`)}>Continuer <ArrowRight size={16}/></button><button className="btn btn-outline" disabled={downloadBusy===item.listing_id} onClick={()=>loadProductDownloads(item.listing_id)}>{downloadBusy===item.listing_id?'Préparation…':'Télécharger les fichiers'}</button></div>{downloadFiles[item.listing_id]?.map((file,index)=><a className="text-button" key={`${item.listing_id}-${index}`} href={file.url} target="_blank" rel="noreferrer" download={file.filename}><Download size={15}/> {file.filename}</a>)}</div>
         </article>;
       })}</div> : <EmptyState title="Ta bibliothèque est prête à accueillir tes cours" text="Tu peux commencer par une ressource gratuite publiée sur SAVOIR+. Les ressources payantes seront activées après la configuration des paiements." action={<button className="btn btn-primary" onClick={() => navigate('/explorer')}>Explorer les ressources</button>}/>}
     </Panel>
