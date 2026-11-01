@@ -40,9 +40,15 @@ before insert or update of status on public.listings
 for each row execute function private.enforce_listing_auto_publication();
 
 drop policy if exists "Admins can create their own listings" on public.listings;
-create policy "Admins can create their own listings"
+drop policy if exists "Only teachers can submit listings" on public.listings;
+create policy "Teachers and admins can submit listings"
 on public.listings for insert to authenticated
-with check (public.is_savoir_admin() and seller_id=(select auth.uid()));
+with check (
+  seller_id=(select auth.uid())
+  and (public.is_savoir_admin() or exists(
+    select 1 from public.profiles p where p.id=(select auth.uid()) and p.account_type='teacher'
+  ))
+);
 
 create table if not exists private.user_directory (
   user_id uuid primary key references auth.users(id) on delete cascade,
