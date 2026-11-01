@@ -91,7 +91,7 @@ begin
   return v_order;
 end; $$;
 create or replace function public.create_savoir_order(p_listing_id uuid)
-returns uuid language sql security invoker set search_path = '' as $$
+returns uuid language sql security definer set search_path = '' as $
 select private.create_savoir_order(p_listing_id); $$;
 revoke all on function public.create_savoir_order(uuid) from public,anon;
 grant execute on function public.create_savoir_order(uuid) to authenticated;
