@@ -69,7 +69,8 @@ create or replace function private.sync_user_directory()
 returns trigger language plpgsql security definer set search_path = '' as $$
 begin
   insert into private.user_directory(user_id,email,account_type,app_role,created_at,updated_at)
-  values(new.id,coalesce(new.email,''),coalesce(new.raw_user_meta_data->>'account_type','student'),
+  values(new.id,coalesce(new.email,''),
+         case when new.raw_user_meta_data->>'account_type' in ('student','parent','teacher') then new.raw_user_meta_data->>'account_type' else 'student' end,
          coalesce(new.raw_app_meta_data->>'role','user'),coalesce(new.created_at,now()),now())
   on conflict(user_id) do update set email=excluded.email,account_type=excluded.account_type,
     app_role=excluded.app_role,updated_at=now();
