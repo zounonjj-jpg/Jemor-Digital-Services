@@ -26,6 +26,7 @@ Sur Vercel, la commande d'installation configurée reconstitue automatiquement l
 - Comptes élèves, étudiants, parents et créateurs avec tableaux de bord distincts.
 - Boutique créateur avec matières et niveaux de spécialisation, publications automatiques sans validation préalable.
 - Administration : annuaire protégé des utilisateurs avec e-mails, profils, ventes et soldes réels.
+- Les données personnelles de scolarité, année de naissance, téléphone et ville sont stockées dans le schéma privé et lisibles uniquement par leur propriétaire ou l’administration.
 - Seul le propriétaire de la plateforme (claim `app_metadata.is_platform_owner=true`) peut nommer un administrateur ; un administrateur nommé ne peut pas en nommer un autre.
 
 ## Fonctionnalités disponibles sans paiement
