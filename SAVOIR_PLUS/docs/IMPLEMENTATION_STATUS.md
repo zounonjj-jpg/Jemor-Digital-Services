@@ -23,3 +23,16 @@
 - Vérifier les uploads, téléchargements, quiz, messagerie, notifications et modération depuis un navigateur utilisateur.
 
 Le build de production est réussi, mais les parcours de bout en bout avec de vrais comptes restent à valider avant de déclarer la plateforme prête pour l'ouverture publique complète.
+
+
+## Refonte des parcours (1 novembre 2026)
+- Landing page orientée conversion avec quatre entrées explicites : Élève, Étudiant, Parent, Créateur.
+- Inscription en deux étapes avec informations scolaires/universitaires, classe de l'enfant, ou informations de boutique.
+- Tableaux de bord séparés pour apprenants, parents et créateurs.
+- Publication des ressources créateur automatique : statut `approved` imposé à la création ; le vendeur ne peut pas modifier lui-même le statut.
+- Annuaire d'administration séparé dans le schéma privé, accessible uniquement aux administrateurs, avec e-mails et données de profil.
+- Vue admin des commandes, acheteurs, créateurs, ventes confirmées et soldes issus du ledger.
+- RPC `promote_savoir_admin` : autorise la nomination uniquement au compte portant le claim protégé `app_metadata.is_platform_owner=true`.
+- RPC `get_teacher_customers` : retourne au créateur uniquement les acheteurs de ses produits dont la commande est réellement payée.
+- Les paiements restent suspendus : aucune vente ni aucun solde fictif n'est généré. Les clients et ventes apparaîtront après activation réelle des paiements.
+- RLS reste activée sur les tables publiques ; l'annuaire d'e-mails est protégé par RLS dans le schéma privé.

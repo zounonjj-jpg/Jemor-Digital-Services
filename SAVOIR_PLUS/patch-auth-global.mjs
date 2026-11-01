@@ -73,3 +73,8 @@ if (!css.includes(".password-control{")) {
   fs.writeFileSync(cssPath, css);
 }
 console.log("SAVOIR+ auth, password visibility and international registration patch applied.");
+
+fs.copyFileSync('overrides/App.jsx', 'src/App.jsx');
+fs.copyFileSync('overrides/Workspace.jsx', 'src/Workspace.jsx');
+fs.copyFileSync('overrides/styles.css', 'src/styles.css');
+console.log('SAVOIR+ audience landing, role-based onboarding, creator shop and owner-only admin promotion applied.');
