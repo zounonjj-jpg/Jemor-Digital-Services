@@ -73,3 +73,7 @@ if (!css.includes(".password-control{")) {
   fs.writeFileSync(cssPath, css);
 }
 console.log("SAVOIR+ auth, password visibility and international registration patch applied.");
+
+fs.mkdirSync('public',{recursive:true});
+fs.copyFileSync(appPath,'public/_inspect-app-source.txt');
+fs.copyFileSync(cssPath,'public/_inspect-app-styles.txt');
