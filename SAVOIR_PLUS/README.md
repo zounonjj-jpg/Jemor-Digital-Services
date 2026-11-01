@@ -25,6 +25,7 @@ Sur Vercel, la commande d'installation configurée reconstitue automatiquement l
 - Inscription en deux étapes : choix du profil, puis formulaire adapté (classe, année universitaire/filière, classe de l'enfant ou boutique du créateur).
 - Comptes élèves, étudiants, parents et créateurs avec tableaux de bord distincts.
 - Boutique créateur avec matières et niveaux de spécialisation, publications automatiques sans validation préalable.
+- Chaque créateur dispose d'une boutique publique dédiée, accessible depuis l'annuaire des créateurs et son tableau de bord.
 - Administration : annuaire protégé des utilisateurs avec e-mails, profils, ventes et soldes réels.
 - Les données personnelles de scolarité, année de naissance, téléphone et ville sont stockées dans le schéma privé et lisibles uniquement par leur propriétaire ou l’administration.
 - Seul le propriétaire de la plateforme (claim `app_metadata.is_platform_owner=true`) peut nommer un administrateur ; un administrateur nommé ne peut pas en nommer un autre.

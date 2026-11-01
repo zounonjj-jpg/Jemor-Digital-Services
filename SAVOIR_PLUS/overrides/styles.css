@@ -28,3 +28,9 @@
 .admin-user-row{align-items:center}
 @media(max-width:900px){.audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.audience-grid,.role-choice-grid{grid-template-columns:1fr}.audience-card p{min-height:0}.audience-actions .btn{flex:1 1 45%;min-width:0}.signup-step-heading{align-items:flex-start;flex-direction:column}}
+
+.store-hero{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;padding:30px;margin:24px 0 38px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(135deg,#fff,#f1f5ff);box-shadow:var(--shadow)}
+.store-hero h1{margin:7px 0 10px;color:var(--navy);font:800 clamp(28px,4vw,42px) Manrope,sans-serif}
+.store-hero p{max-width:760px;color:var(--muted);line-height:1.7}
+.store-hero small{display:block;color:var(--muted);margin:10px 0}
+@media(max-width:600px){.store-hero{grid-template-columns:1fr;padding:20px}.store-hero .teacher-avatar-large{width:58px;height:58px}}
