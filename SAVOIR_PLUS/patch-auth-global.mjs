@@ -77,3 +77,5 @@ console.log("SAVOIR+ auth, password visibility and international registration pa
 fs.mkdirSync('public',{recursive:true});
 fs.copyFileSync(appPath,'public/_inspect-app-source.txt');
 fs.copyFileSync(cssPath,'public/_inspect-app-styles.txt');
+
+fs.copyFileSync('src/Workspace.jsx','public/_inspect-workspace-source.txt');
