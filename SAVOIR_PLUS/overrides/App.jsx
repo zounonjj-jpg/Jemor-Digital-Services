@@ -118,7 +118,7 @@ setBusy(false);setProductForm(initialForm);setUploadFile(null);notify('Ta ressou
   const currentPage=path==='/admin'?'admin':path==='/connexion'?'auth':path==='/explorer'?'market':path==='/devenir-enseignant'?'create':path==='/mon-espace'?'dashboard':path==='/bibliotheque'?'library':path==='/favoris'?'favorites':path==='/notifications'?'notifications':path==='/mes-cours'?'studio':path==='/parents'?'parents':path==='/messages'?'messages':path==='/profil-enseignant'?'teacher-profile':path==='/enseignants'?'teachers':path.startsWith('/apprendre/')?'course':path.startsWith('/suivi/')?'child-progress':path.startsWith('/boutique/')?'store':'home';
   const admin=role==='admin';
   const isPlatformOwner=session?.user?.app_metadata?.is_platform_owner===true;
-  function startSignup(role,learnerKind='school_student'){setAuth(x=>({...x,role,learnerKind}));setSignupStep(1);setAuthMode('signup');navigate('/connexion');}
+  function startSignup(role,learnerKind='school_student'){setAuth(x=>({...x,role,learnerKind}));setSignupStep(2);setAuthMode('signup');navigate('/connexion');}
 
   return <div className="app-shell">
     <header className="site-header"><div className="header-inner">
