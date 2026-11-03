@@ -11,6 +11,7 @@ Le paiement utilise une session de checkout hébergée par SasPay, créée pour 
 Ajouter ces secrets dans le tableau de bord Supabase du projet SEM, section Edge Functions / Secrets :
 
 - `SASPAY_API_KEY` : clé API SasPay avec le scope PAYIN ou BOTH.
+- `SASPAY_CHECKOUT_ENABLED` : interrupteur serveur à laisser absent ou `false` pendant la préparation ; le passer à `true` uniquement après validation Sandbox et décision explicite de mise en service.
 - `SASPAY_WEBHOOK_SECRET` : secret de signature révélé lors de la création ou de la rotation du webhook SasPay.
 
 Ne jamais mettre ces valeurs dans GitHub, dans le code client, dans Vercel public env vars ou dans un message/chat.
