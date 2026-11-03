@@ -60,6 +60,10 @@ Le retour navigateur n'est jamais une preuve de paiement. Les produits payants n
 
 ## Reversements créateurs
 
+6. Clarifier la politique de frais : pour préserver 10 % de commission SAVOIR+ et 90 % pour le vendeur, SasPay doit confirmer si les frais de paiement peuvent être ajoutés au montant payé par le client (mode ADD_ON) ou s'ils sont prélevés sur le montant marchand. Ne pas faire de versements créateurs à partir des soldes bruts tant que cette règle n'est pas validée.
+7. Les Edge Functions Supabase n'ont pas d'adresse IP sortante statique garantie. SasPay indique que l'API de payout avec clé API exige une IP autorisée. Sans solution d'egress statique (proxy/serveur avec IP fixe) ou alternative acceptée par SasPay, les reversements automatiques depuis Supabase Edge ne doivent pas être activés. En mode zéro budget, les retraits devront rester manuels via le tableau de bord SasPay au lancement, avec rapprochement administratif.
+
+
 Le portefeuille SAVOIR+ et le registre de commission sont comptables. Ils ne transfèrent pas d'argent à eux seuls.
 
 La documentation consultée décrit un endpoint de payout, mais indique également que les payouts doivent être activés par SasPay et que l'adresse IP serveur doit être autorisée. La fonctionnalité de payout n'a pas été considérée comme testée/confirmée pour le lancement. Aucun virement automatique aux créateurs n'est activé dans ce code à ce stade.
