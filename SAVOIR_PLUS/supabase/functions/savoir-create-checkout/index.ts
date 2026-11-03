@@ -30,8 +30,10 @@ Deno.serve(async (req: Request) => {
     const anonKey = Deno.env.get("SUPABASE_ANON_KEY") ?? Deno.env.get("SUPABASE_PUBLISHABLE_KEY");
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     const saspayKey = Deno.env.get("SASPAY_API_KEY");
+    const checkoutEnabled = Deno.env.get("SASPAY_CHECKOUT_ENABLED") === "true";
     if (!url || !anonKey || !serviceKey) throw new Error("Supabase function environment is incomplete");
-    if (!saspayKey) return json({ error: "SasPay n'est pas encore configuré sur le serveur. Aucun paiement n'a été créé." }, 503);
+    if (!checkoutEnabled) return json({ error: "Les paiements SasPay sont volontairement désactivés en attendant les tests Sandbox et la validation du compte marchand." }, 503);
+    if (!saspayKey) return json({ error: "La clé API SasPay n'est pas configurée sur le serveur. Aucun paiement n'a été créé." }, 503);
 
     const userClient = createClient(url, anonKey, {
       auth: { persistSession: false, autoRefreshToken: false },
